@@ -3,6 +3,7 @@
 ## Predição de Spam/Ham
 
 O modelo Naive Bayes foi gerado via Jupyter Notebook.
+
 Uma interface para realização das predições foi elaborada utilizado Flask.
 
 Demo: https://spamhamclassifier.herokuapp.com/
