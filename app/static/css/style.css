@@ -1,0 +1,16 @@
+/*********************/
+/*** LAYOUT BÁSICO ***/
+/*********************/
+body {
+  background-color: #ffffff;
+  margin: 20px;
+}
+
+#logo-br {
+    position: relative;
+}
+#logo-br img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}

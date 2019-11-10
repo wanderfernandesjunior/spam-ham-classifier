@@ -1,0 +1,54 @@
+<!doctype html>
+<head>
+  <title>Machine Learning - Predição de Spam/Ham</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Machine Learning - Predição de Spam/Ham">
+	<meta name="author" content="Wander Fernandes Junior">  
+  <!–– CSS do Bootstrap, Font Awesome e Outros ––>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.4.1.3.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome-5.2.0/css/all.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+<p><b>Machine Learning</b> - Predição de Spam/Ham</p>
+<form id="predict">
+  <textarea name="texto" rows="4" cols="50"></textarea><br/>
+  <button id="predict-botao" type="submit"><i class="far fa-play-circle"></i> Predict</button>
+</form>
+<br/>
+<p><span id="resultado"></span></p>
+<p><span id="probabilidade"></span></p>
+</body>
+
+<!–– Javascript ––>
+<script src="{{ url_for('static', filename='js/jquery.3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/popper.1.14.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.4.1.3.min.js') }}"></script>
+
+<script>
+  function predictSubmit(ev) {
+    ev.preventDefault();
+    $.ajax({
+      method: 'POST',
+      url: '/predict',
+      data: $(this).serialize(),
+      beforeSend: function() {
+        $("#predict-botao").html("<i class='fa fa-spinner fa-spin'></i> Predicting...");
+      }
+    })
+    .done(function(data) {
+      $('#resultado').html("Resultado: " + data.resultado);
+      $('#probabilidade').html("Probabilidade: " + data.probabilidade + "%");       
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      $('#resultado').html('<p>Erro: '+jqXHR.status+'</p><p>Descrição: ' + jqXHR.responseJSON.erro + '</p>');    
+    })
+    .always(function() {
+      $("#predict-botao").html("<i class='far fa-play-circle'></i> Predict");
+    });
+  }
+
+  $('#predict').on('submit', predictSubmit);
+</script>
