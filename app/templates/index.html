@@ -28,6 +28,7 @@
 <script src="{{ url_for('static', filename='js/bootstrap.4.1.3.min.js') }}"></script>
 
 <script>
+$(document).ready(function(){
   function predictSubmit(ev) {
     ev.preventDefault();
     $.ajax({
@@ -51,4 +52,6 @@
   }
 
   $('#predict').on('submit', predictSubmit);
+
+}); 
 </script>
